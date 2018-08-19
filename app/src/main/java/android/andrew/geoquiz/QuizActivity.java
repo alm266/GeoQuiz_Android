@@ -12,6 +12,8 @@ public class QuizActivity extends Activity {
 
     //for identifying source when Logging debug messages
     private static final String TAG = "QuizActivity";
+    //key for key-value pair stored in bundle
+    private static final String KEY_INDEX = "index";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -32,6 +34,9 @@ public class QuizActivity extends Activity {
     private void updateQuestion(){
         int question = mQuestionBank[mCurrentIndex].getQuestion();
         mQuestionTextView.setText(question);
+
+        //DEBUG level message
+        Log.d(TAG, "Current question index: " + mCurrentIndex);
     }
 
     private void nextCurrentIndex(){
@@ -117,7 +122,19 @@ public class QuizActivity extends Activity {
                 updateQuestion();
             }
         });
+
+        if(savedInstanceState != null){
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
+
         updateQuestion();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
     }
 
     //Android lifecycle method overrides
