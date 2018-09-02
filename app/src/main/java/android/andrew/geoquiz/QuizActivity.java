@@ -19,6 +19,7 @@ public class QuizActivity extends Activity {
     private Button mFalseButton;
     private Button mPrevButton;
     private Button mNextButton;
+    private Button mCheatButton;
     private TextView mQuestionTextView;
 
     private TrueFalse[] mQuestionBank = new TrueFalse[]{
@@ -32,6 +33,7 @@ public class QuizActivity extends Activity {
     private int mCurrentIndex = 0;
 
     private void updateQuestion(){
+        //Log.d(TAG, "Updating question text for question #" + mCurrentIndex, new Exception());
         int question = mQuestionBank[mCurrentIndex].getQuestion();
         mQuestionTextView.setText(question);
 
@@ -126,6 +128,17 @@ public class QuizActivity extends Activity {
         if(savedInstanceState != null){
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
         }
+
+        updateQuestion();
+
+        mCheatButton = (Button)findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                //TODO: Start CheatActivity
+            }
+        });
 
         updateQuestion();
     }
