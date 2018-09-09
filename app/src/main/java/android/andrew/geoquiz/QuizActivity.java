@@ -1,6 +1,7 @@
 package android.andrew.geoquiz;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -136,7 +137,14 @@ public class QuizActivity extends Activity {
 
             @Override
             public void onClick(View v){
-                //TODO: Start CheatActivity
+                //Used to tell the ActivityManager which activity to start
+
+                //Important to have the all Activities declared in AndroidManifest
+                //Otherwise this will result in an exception
+                Intent i = new Intent(QuizActivity.this, CheatActivity.class);
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
+                i.putExtra(CheatActivity.EXTRA_ANSWER_IS_TRUE, answerIsTrue);
+                startActivity(i);
             }
         });
 
